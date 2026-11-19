@@ -1,9 +1,9 @@
-
 import { useState } from 'react'
+import { API_URL } from '../../config'
+import '../../styles/common.css'
+import './Auth.css'
 
-const API_URL = 'http://localhost:8000'
-
-function Auth({ onLogin }) {
+function AuthPage({ onLogin }) {
   const [mode, setMode] = useState('login')
   const [form, setForm] = useState({
     name: '',
@@ -155,4 +155,4 @@ function Auth({ onLogin }) {
   )
 }
 
-export default Auth
+export default AuthPage
