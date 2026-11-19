@@ -220,7 +220,7 @@ export default function App() {
   const myRating =
     selected &&
     ratings.find((r) => r.note_id === selected.id && r.user_id === user?.id);
-  if (page === 'auth')
+  if (!token || page === 'auth')
     return (
       <AuthPage
         authMode={authMode}
@@ -230,7 +230,6 @@ export default function App() {
         busy={busy}
         authenticate={authenticate}
         message={message}
-        onHome={() => go('home')}
       />
     );
   return (
