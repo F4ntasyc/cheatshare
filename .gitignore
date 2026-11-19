@@ -1,13 +1,9 @@
-# Python
-__pycache__/
-*.pyc
-venv/
 .env
-
-# Node
+.env.*
+!.env.example
 node_modules/
 dist/
-
-# OS / editor
-.DS_Store
-.vscode/
+__pycache__/
+*.pyc
+.venv/
+venv/

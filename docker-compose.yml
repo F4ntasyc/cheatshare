@@ -1,19 +1,15 @@
 services:
   backend:
     build: ./backend
-    container_name: cheatshare-backend
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-local-development-secret-change-before-sharing}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@cheatshare.example.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-ChangeMe123!}
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-    environment:
-      JWT_SECRET: ${JWT_SECRET}
-
   frontend:
     build: ./frontend
-    container_name: cheatshare-frontend
     ports:
-      - "5173:5173"
+      - "5173:80"
     depends_on:
       - backend
