@@ -1,5 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Arial, sans-serif;
+  font-family:
+    'Plus Jakarta Sans Variable',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Arial,
+    sans-serif;
   color: #20395d;
   background: #f4f8ff;
   font-synthesis: none;

@@ -220,6 +220,19 @@ export default function App() {
   const myRating =
     selected &&
     ratings.find((r) => r.note_id === selected.id && r.user_id === user?.id);
+  if (page === 'auth')
+    return (
+      <AuthPage
+        authMode={authMode}
+        setAuthMode={setAuthMode}
+        auth={auth}
+        setAuth={setAuth}
+        busy={busy}
+        authenticate={authenticate}
+        message={message}
+        onHome={() => go('home')}
+      />
+    );
   return (
     <div className="layout">
       <Sidebar
@@ -232,16 +245,6 @@ export default function App() {
       <main>
         <Header user={user} search={search} setSearch={setSearch} />
         {message && <MessageAlert message={message} setMessage={setMessage} />}
-        {page === 'auth' && (
-          <AuthPage
-            authMode={authMode}
-            setAuthMode={setAuthMode}
-            auth={auth}
-            setAuth={setAuth}
-            busy={busy}
-            authenticate={authenticate}
-          />
-        )}
         {page === 'home' && (
           <HomePage
             user={user}
