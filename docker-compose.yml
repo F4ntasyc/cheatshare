@@ -5,6 +5,7 @@ services:
       SECRET_KEY: ${SECRET_KEY:-local-development-secret-change-before-sharing}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@cheatshare.example.com}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-ChangeMe123!}
+      SEED_DEMO: ${SEED_DEMO:-true}
     ports:
       - "8000:8000"
   frontend:

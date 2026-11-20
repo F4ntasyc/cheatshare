@@ -280,3 +280,32 @@ admin_password = os.getenv('ADMIN_PASSWORD', 'ChangeMe123!')
 users.append({'id': next_id('users'), 'name': 'Administrator', 'email': admin_email, 'password_hash': password_hash(admin_password), 'role': 'admin'})
 for code, name in [('IF101', 'Algoritma'), ('IF102', 'Basis Data'), ('IF103', 'Jaringan Komputer'), ('IF104', 'Sistem Operasi'), ('IF105', 'Keamanan Siber'), ('IF106', 'Pemrograman Web')]:
     courses.append({'id': next_id('courses'), 'code': code, 'name': name})
+
+if os.getenv('SEED_DEMO', 'true').lower() in ('1', 'true', 'yes'):
+    demo_password = os.getenv('DEMO_PASSWORD', 'Demo12345!')
+    for name, email in [('Budi Santoso', 'budi@example.com'), ('Siti Rahma', 'siti@example.com'), ('Andi Pratama', 'andi@example.com'), ('Fathan Akbar', 'fathan@example.com')]:
+        users.append({'id': next_id('users'), 'name': name, 'email': email, 'password_hash': password_hash(demo_password), 'role': 'user'})
+    course_id = {c['code']: c['id'] for c in courses}
+    def demo_img(label, color):
+        return 'https://placehold.co/600x800/' + color + '/1e3a5f?text=' + label.replace(' ', '+')
+    demo_notes = [
+        (1, 'IF101', 'Algoritma Greedy', 'Prinsip, langkah, dan contoh Activity Selection dengan kompleksitas O(n log n).', 'dbeafe'),
+        (1, 'IF101', 'Kompleksitas Algoritma', 'Ringkasan Big-O, Omega, Theta, beserta contoh perhitungannya.', 'e0e7ff'),
+        (2, 'IF101', 'Sorting Algorithm', 'Perbandingan bubble, selection, insertion, merge, dan quick sort.', 'cffafe'),
+        (2, 'IF102', 'Query SQL Dasar', 'SELECT, INSERT, UPDATE, DELETE, dan klausa WHERE.', 'dcfce7'),
+        (3, 'IF102', 'JOIN dan Normalisasi', 'INNER, LEFT, RIGHT JOIN serta bentuk normal 1NF sampai BCNF.', 'fce7f3'),
+        (3, 'IF103', 'Model OSI dan TCP/IP', 'Tujuh lapisan OSI dibandingkan dengan empat lapisan TCP/IP.', 'fef9c3'),
+        (4, 'IF103', 'Subnetting Cepat', 'Trik menghitung subnet mask, network, dan broadcast address.', 'ffedd5'),
+        (1, 'IF104', 'Penjadwalan CPU', 'FCFS, SJF, Round Robin, dan perhitungan waiting time.', 'dbeafe'),
+        (2, 'IF104', 'Deadlock', 'Empat kondisi Coffman, pencegahan, dan algoritma Banker.', 'e0e7ff'),
+        (4, 'IF105', 'Kriptografi Dasar', 'Simetris vs asimetris, hash, dan tanda tangan digital.', 'cffafe'),
+        (3, 'IF106', 'REST API dan HTTP', 'Method HTTP, status code, dan prinsip desain REST.', 'dcfce7'),
+        (4, 'IF106', 'React Hooks', 'useState, useEffect, dan aturan pemakaian hooks.', 'fce7f3'),
+    ]
+    for owner, code, title, desc, color in demo_notes:
+        notes.append({'id': next_id('notes'), 'user_id': owner + 1, 'course_id': course_id[code], 'title': title, 'description': desc, 'image_url': demo_img(title, color)})
+    demo_scores = {1: [5, 5, 4, 5], 2: [4, 4, 5], 3: [5, 4], 4: [3, 4, 4], 5: [4, 5], 6: [5, 3], 7: [4], 8: [5, 4, 4], 9: [3], 10: [5, 5], 11: [4, 4, 3], 12: [5]}
+    for note in notes:
+        raters = [u for u in users if u['role'] == 'user' and u['id'] != note['user_id']]
+        for rater, score in zip(raters, demo_scores.get(note['id'], [])):
+            ratings.append({'id': next_id('ratings'), 'user_id': rater['id'], 'note_id': note['id'], 'score': score})
