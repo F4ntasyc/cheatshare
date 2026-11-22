@@ -21,6 +21,7 @@ export default function NoteEditor({
   busy,
   saveNote,
   go,
+  token,
 }) {
   // Daftar foto lokal: {key, url?, previewUrl, status, error?}.
   // Hanya item 'done' yang disinkronkan (berurutan) ke noteForm.images.
@@ -68,10 +69,7 @@ export default function NoteEditor({
   async function processOne(key, file) {
     try {
       const blob = await prepareImage(file);
-      const { url } = await uploadImage(
-        blob,
-        sessionStorage.getItem('cs_token'),
-      );
+      const { url } = await uploadImage(blob, token);
       patchItem(key, { status: 'done', url });
     } catch (e) {
       patchItem(key, { status: 'error', error: e.message || String(e) });

@@ -382,7 +382,7 @@ for code, name in [('IF101', 'Algoritma'), ('IF102', 'Basis Data'), ('IF103', 'J
 if os.getenv('SEED_DEMO', 'true').lower() in ('1', 'true', 'yes'):
     demo_password = os.getenv('DEMO_PASSWORD', 'Demo12345!')
     for name, email in [('Budi Santoso', 'budi@example.com'), ('Siti Rahma', 'siti@example.com'), ('Andi Pratama', 'andi@example.com'), ('Fathan Akbar', 'fathan@example.com')]:
-        users.append({'id': next_id('users'), 'name': name, 'email': email, 'password_hash': password_hash(demo_password), 'role': 'user'})
+        users.append({'id': next_id('users'), 'name': name, 'email': email, 'password_hash': password_hash(demo_password), 'role': 'student'})
     course_id = {c['code']: c['id'] for c in courses}
     def demo_img(label, color):
         return 'https://placehold.co/600x800/' + color + '/1e3a5f?text=' + label.replace(' ', '+')
@@ -404,6 +404,6 @@ if os.getenv('SEED_DEMO', 'true').lower() in ('1', 'true', 'yes'):
         notes.append({'id': next_id('notes'), 'user_id': owner + 1, 'course_id': course_id[code], 'title': title, 'description': desc, 'images': [demo_img(title, color)]})
     demo_scores = {1: [5, 5, 4, 5], 2: [4, 4, 5], 3: [5, 4], 4: [3, 4, 4], 5: [4, 5], 6: [5, 3], 7: [4], 8: [5, 4, 4], 9: [3], 10: [5, 5], 11: [4, 4, 3], 12: [5]}
     for note in notes:
-        raters = [u for u in users if u['role'] == 'user' and u['id'] != note['user_id']]
+        raters = [u for u in users if u['role'] == 'student' and u['id'] != note['user_id']]
         for rater, score in zip(raters, demo_scores.get(note['id'], [])):
             ratings.append({'id': next_id('ratings'), 'user_id': rater['id'], 'note_id': note['id'], 'score': score})

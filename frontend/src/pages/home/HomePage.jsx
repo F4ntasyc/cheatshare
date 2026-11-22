@@ -131,7 +131,6 @@ export default function HomePage({
                   type="button"
                   key={c.id}
                   className={'home-course' + (chosen ? ' is-selected' : '')}
-                  aria-pressed={chosen}
                   onClick={() => {
                     setCourse(String(c.id));
                     go('course');

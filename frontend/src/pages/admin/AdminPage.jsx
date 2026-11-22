@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { EditIcon, PlusIcon, TrashIcon } from '../../components/icons.jsx';
+import MessageAlert from '../../components/MessageAlert.jsx';
 import './Admin.css';
 
 const integer = new Intl.NumberFormat('id-ID');
@@ -16,6 +17,9 @@ export default function AdminPage({
   busy,
   saveCourse,
   removeCourse,
+  message,
+  messageTone,
+  setMessage,
 }) {
   // Panel form tertutup secara default (tampilan awal = hero + tabel).
   const [open, setOpen] = useState(false);
@@ -61,6 +65,16 @@ export default function AdminPage({
           Tambah Mata Kuliah
         </button>
       </section>
+
+      {message && (
+        <div className="admin-message">
+          <MessageAlert
+            message={message}
+            setMessage={setMessage}
+            tone={messageTone}
+          />
+        </div>
+      )}
 
       {open && (
         <section

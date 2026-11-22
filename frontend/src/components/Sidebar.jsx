@@ -15,7 +15,8 @@ function NavItem({ active, icon, label, onClick }) {
   );
 }
 
-export default function Sidebar({ page, user, setCourse, go, logout }) {
+// Login wajib: shell hanya dirender saat user sudah dimuat.
+export default function Sidebar({ area, user, setCourse, go, logout }) {
   return (
     <aside className="shell-sidebar" aria-label="Navigasi utama">
       <div className="shell-brand">
@@ -24,7 +25,7 @@ export default function Sidebar({ page, user, setCourse, go, logout }) {
       </div>
       <nav className="shell-nav">
         <NavItem
-          active={page === 'home' || page === 'course'}
+          active={area === 'courses'}
           icon={<HomeIcon size={24} />}
           label="Mata Kuliah"
           onClick={() => {
@@ -33,14 +34,14 @@ export default function Sidebar({ page, user, setCourse, go, logout }) {
           }}
         />
         <NavItem
-          active={page === 'profile'}
+          active={area === 'profile'}
           icon={<UserIcon size={24} />}
           label="Profil Saya"
-          onClick={() => (user ? go('profile') : go('auth'))}
+          onClick={() => go('profile')}
         />
-        {user?.role === 'admin' && (
+        {user.role === 'admin' && (
           <NavItem
-            active={page === 'admin'}
+            active={area === 'admin'}
             icon={<SettingsIcon size={24} />}
             label="Admin"
             onClick={() => go('admin')}
@@ -48,19 +49,11 @@ export default function Sidebar({ page, user, setCourse, go, logout }) {
         )}
       </nav>
       <div className="shell-bottom">
-        {user ? (
-          <NavItem
-            icon={<LogoutIcon size={24} />}
-            label="Keluar"
-            onClick={logout}
-          />
-        ) : (
-          <NavItem
-            icon={<UserIcon size={24} />}
-            label="Masuk / Daftar"
-            onClick={() => go('auth')}
-          />
-        )}
+        <NavItem
+          icon={<LogoutIcon size={24} />}
+          label="Keluar"
+          onClick={logout}
+        />
       </div>
     </aside>
   );

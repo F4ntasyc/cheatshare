@@ -11,7 +11,7 @@ const RULES = [
   ],
   [
     'chart',
-    /statistik|analitik|analisis data|sains data|data science|machine learning|big data|visualisasi|bisnis cerdas/,
+    /statistik|analitik|analisis data|sains data|data science|machine learning|big data|visualisasi|bisnis cerdas|kecerdasan buatan|artificial intelligence/,
   ],
   ['algo', /algoritma|struktur data|matematika diskrit|logika|kompleksitas/],
   [

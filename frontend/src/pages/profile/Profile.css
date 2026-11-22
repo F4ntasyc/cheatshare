@@ -407,3 +407,12 @@
     flex: 1;
   }
 }
+
+/* Pesan inline (sukses/gagal) di atas kartu profil */
+.profile-message {
+  margin-top: 18px;
+}
+
+.profile-message .alert {
+  margin-bottom: 0;
+}

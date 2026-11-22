@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import NoteGrid from '../../components/NoteGrid.jsx';
+import MessageAlert from '../../components/MessageAlert.jsx';
 import {
   ChartIcon,
   EditIcon,
@@ -35,6 +36,9 @@ export default function ProfilePage({
   visible,
   setSelected,
   setPage,
+  message,
+  messageTone,
+  setMessage,
 }) {
   const [editing, setEditing] = useState(false);
 
@@ -59,6 +63,16 @@ export default function ProfilePage({
         <h1>Profil Saya</h1>
         <p>Kelola akun dan kontribusimu di CheatShare.</p>
       </header>
+
+      {message && (
+        <div className="profile-message">
+          <MessageAlert
+            message={message}
+            setMessage={setMessage}
+            tone={messageTone}
+          />
+        </div>
+      )}
 
       <section className="profile-hero" aria-label="Informasi akun">
         <span className="profile-hero-deco" aria-hidden="true" />

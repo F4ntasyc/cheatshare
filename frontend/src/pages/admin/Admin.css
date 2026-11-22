@@ -320,3 +320,12 @@
     height: 46px;
   }
 }
+
+/* Pesan inline (sukses/gagal) di atas form/daftar */
+.admin-message {
+  margin-top: 18px;
+}
+
+.admin-message .alert {
+  margin-bottom: 0;
+}

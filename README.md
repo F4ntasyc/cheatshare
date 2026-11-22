@@ -35,6 +35,8 @@ Daftar akun -> login -> admin membuat mata kuliah -> pengguna unggah note -> pen
 
 `cd backend && pip install -r requirements.txt pytest httpx && pytest -q`
 
+Atau dengan versi yang dipin: `cd backend && pip install -r requirements-dev.txt && pytest -q`
+
 ## Status verifikasi saat ZIP dibuat
 
 Backend telah diuji dengan FastAPI TestClient untuk login, registrasi, izin admin, CRUD note dan rating. **Docker tidak tersedia di lingkungan pembuatan**, sehingga `docker compose up --build` belum dapat diverifikasi langsung. `npm ci` tidak dapat menyelesaikan pengunduhan dependency karena keterbatasan akses npm registry; build React/Vite juga belum terverifikasi. Jalankan build pada komputer dengan Docker Desktop dan akses internet.
