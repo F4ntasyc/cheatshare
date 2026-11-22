@@ -29,77 +29,6 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-aside {
-  width: 225px;
-  background: white;
-  border-right: 1px solid #e5edfa;
-  padding: 26px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  flex-shrink: 0;
-}
-.brand {
-  font-size: 22px;
-  font-weight: 850;
-  color: #146bb1;
-  margin-bottom: 30px;
-}
-aside button {
-  border: 0;
-  background: transparent;
-  text-align: left;
-  padding: 14px 16px;
-  border-radius: 12px;
-  color: #426180;
-  font-weight: 650;
-}
-aside button:hover,
-aside button.active {
-  background: #287ebc;
-  color: white;
-}
-.sidebar-bottom {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.sidebar-bottom small {
-  overflow-wrap: anywhere;
-}
-main {
-  max-width: 1300px;
-  width: 100%;
-  padding: 20px 38px 70px;
-  margin: auto;
-  align-self: flex-start;
-}
-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 30px;
-  color: #56718e;
-}
-header input {
-  width: min(400px, 50%);
-  background: white;
-  border: 1px solid #e4ebf5;
-  border-radius: 24px;
-  padding: 12px 20px;
-}
-.mobilebrand {
-  display: none;
-}
 h1 {
   font-size: clamp(25px, 3vw, 38px);
   line-height: 1.2;
@@ -109,25 +38,6 @@ h2 {
 }
 h3 {
   font-size: 18px;
-}
-.hero {
-  background: linear-gradient(110deg, #d7ebff, #eef6ff);
-  border-radius: 22px;
-  padding: 42px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 220px;
-}
-.hero h1 {
-  max-width: 470px;
-  margin: 0 0 12px;
-}
-.hero p {
-  color: #55759b;
-}
-.heroart {
-  font-size: 65px;
 }
 .primary {
   background: #2581c0;
@@ -154,30 +64,6 @@ h3 {
   padding: 9px;
   border: 1px solid #dbe6f3;
   border-radius: 9px;
-}
-.courses {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-.course {
-  display: flex;
-  align-items: center;
-  text-align: left;
-  gap: 13px;
-  padding: 18px 14px;
-  background: white;
-  border: 1px solid #e5edf7;
-  border-radius: 13px;
-  color: #263e5c;
-}
-.course:hover,
-.course.chosen {
-  border-color: #2185cc;
-  background: #eaf6ff;
-}
-.courseicon {
-  font-size: 28px;
 }
 .course small,
 .notecard small {
@@ -358,77 +244,19 @@ th {
   background: #eef6ff;
 }
 @media (max-width: 850px) {
-  aside {
-    width: 165px;
-  }
-  .brand {
-    font-size: 18px;
-  }
-  main {
-    padding: 18px;
-  }
   .courses,
   .notegrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .heroart {
-    font-size: 40px;
   }
   .detail {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 580px) {
-  .layout {
-    display: block;
-  }
-  aside {
-    position: static;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px;
-    gap: 5px;
-  }
-  .brand {
-    width: 100%;
-    margin: 0 0 5px;
-  }
-  aside button {
-    padding: 9px;
-    font-size: 12px;
-  }
-  .sidebar-bottom {
-    margin: 0 0 0 auto;
-  }
-  main {
-    padding: 15px;
-  }
-  header {
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  header input {
-    width: 70%;
-  }
-  .hero {
-    padding: 24px;
-  }
-  .heroart {
-    display: none;
-  }
   .courses,
   .notegrid {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-  }
-  .course {
-    padding: 10px;
-    gap: 6px;
-  }
-  .courseicon {
-    font-size: 20px;
   }
   .thumb {
     height: 110px;

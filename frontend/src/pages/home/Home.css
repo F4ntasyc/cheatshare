@@ -1,0 +1,382 @@
+/* Beranda. Memakai token shell (--shell-*) dari .layout. */
+
+/* ---------- Hero ---------- */
+
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 280px;
+  padding: 0 clamp(24px, 4vw, 56px);
+  border-radius: 28px;
+  background: linear-gradient(110deg, #d9ebff 0%, #e8f3ff 55%, #dcecff 100%);
+}
+
+/* Awan dekoratif (CSS murni) */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 62% 112%,
+      rgb(255 255 255 / 0.75) 0 90px,
+      transparent 91px
+    ),
+    radial-gradient(
+      circle at 74% 100%,
+      rgb(255 255 255 / 0.65) 0 120px,
+      transparent 121px
+    ),
+    radial-gradient(
+      circle at 92% 96%,
+      rgb(255 255 255 / 0.7) 0 110px,
+      transparent 111px
+    ),
+    radial-gradient(
+      circle at 100% 20%,
+      rgb(255 255 255 / 0.55) 0 90px,
+      transparent 91px
+    );
+}
+
+.home-hero-text {
+  max-width: 580px;
+  padding-block: clamp(28px, 4vw, 48px);
+}
+
+.home-hero h1 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--shell-ink, #0b1a3a);
+  text-wrap: balance;
+}
+
+.home-hero p {
+  margin: 14px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  color: var(--shell-text, #24324f);
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 22px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.home-btn--primary {
+  border: 0;
+  background: var(--shell-primary, #2e79b3);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgb(46 121 179 / 0.28);
+}
+
+.home-btn--primary:hover {
+  background: var(--shell-primary-hover, #276a9c);
+}
+
+.home-btn--secondary {
+  border: 1.5px solid #c9dcf2;
+  background: rgb(255 255 255 / 0.85);
+  color: var(--shell-primary, #2e79b3);
+}
+
+.home-btn--secondary:hover {
+  border-color: var(--shell-primary, #2e79b3);
+  background: #ffffff;
+}
+
+.home-hero-mascot {
+  align-self: flex-end;
+  flex: none;
+  width: clamp(220px, 26vw, 380px);
+  height: auto;
+}
+
+.home-hero-mascot[hidden] {
+  display: none;
+}
+
+/* ---------- Daftar mata kuliah ---------- */
+
+.home-courses {
+  margin-top: 36px;
+}
+
+.home-courses-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 18px;
+}
+
+.home-courses-head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.home-courses-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.home-search {
+  position: relative;
+  width: 300px;
+  max-width: 100%;
+}
+
+.home-search input,
+.home-select {
+  height: 44px;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 999px;
+  background: var(--shell-surface, #ffffff);
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.home-search input {
+  width: 100%;
+  padding: 0 16px 0 42px;
+}
+
+.home-search input::placeholder {
+  color: var(--shell-muted, #5b6b86);
+  opacity: 1;
+}
+
+.home-search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--shell-muted, #5b6b86);
+  pointer-events: none;
+}
+
+.home-select {
+  min-width: 140px;
+  max-width: 100%;
+  padding: 0 16px;
+  font-weight: 600;
+}
+
+/* Maksimal 3 kolom; kolom minimal 320px agar nama panjang membungkus di
+   batas kata (bukan di tengah kata) */
+.home-course-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(min(100%, 320px), calc((100% - 40px) / 3)), 1fr)
+  );
+}
+
+.home-course {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 20px;
+  background: var(--shell-surface, #ffffff);
+  color: var(--shell-text, #24324f);
+  text-align: left;
+  box-shadow: 0 6px 18px rgb(30 64 120 / 0.05);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.home-course:hover {
+  border-color: #bcd5f1;
+  box-shadow: 0 10px 24px rgb(30 64 120 / 0.1);
+  transform: translateY(-1px);
+}
+
+.home-course.is-selected {
+  border-color: var(--shell-primary, #2e79b3);
+  background: #eef6ff;
+  box-shadow: 0 0 0 3px rgb(46 121 179 / 0.18);
+}
+
+.home-course-icon {
+  display: block;
+}
+
+.home-course-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.home-course-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--shell-ink, #0b1a3a);
+  overflow-wrap: break-word;
+}
+
+.home-course-count {
+  font-size: 0.95rem;
+  color: var(--shell-muted, #5b6b86);
+}
+
+.home-course-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef3fa;
+  color: #3a4b6b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.home-course-chevron {
+  align-self: start;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 50%;
+  color: var(--shell-text, #24324f);
+}
+
+.home-empty {
+  margin: 0;
+  padding: 24px;
+  border: 1.5px dashed var(--shell-border, #e3ecf8);
+  border-radius: 16px;
+  background: var(--shell-surface, #ffffff);
+  color: var(--shell-muted, #5b6b86);
+  text-align: center;
+}
+
+/* ---------- Grid cheatsheet ---------- */
+
+.home-notes {
+  margin-top: 12px;
+  scroll-margin-top: 90px;
+}
+
+/* Fokus keyboard */
+.home-btn:focus-visible,
+.home-course:focus-visible,
+.home-select:focus-visible {
+  outline: 3px solid var(--shell-accent, #1a6fd8);
+  outline-offset: 2px;
+}
+
+.home-search input:focus {
+  outline: none;
+  border-color: var(--shell-accent, #1a6fd8);
+  box-shadow: 0 0 0 4px var(--shell-focus, rgb(26 111 216 / 0.28));
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 850px) {
+  .home-hero-mascot {
+    width: 220px;
+  }
+}
+
+/* ---------- Mobile: maskot di bawah teks, lebih kecil ---------- */
+
+@media (max-width: 580px) {
+  .home-hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 20px;
+    border-radius: 22px;
+  }
+
+  .home-hero-text {
+    padding-block: 24px 8px;
+  }
+
+  .home-hero-actions {
+    margin-top: 20px;
+  }
+
+  .home-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .home-hero-mascot {
+    align-self: center;
+    width: min(70%, 220px);
+  }
+
+  .home-courses-controls,
+  .home-search {
+    width: 100%;
+  }
+
+  .home-select {
+    flex: 1 1 auto;
+  }
+
+  .home-course {
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .home-course-icon {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero *,
+  .home-courses * {
+    transition: none !important;
+  }
+
+  .home-course:hover {
+    transform: none;
+  }
+}

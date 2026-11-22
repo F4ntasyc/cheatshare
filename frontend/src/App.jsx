@@ -242,7 +242,7 @@ export default function App() {
         logout={logout}
       />
       <main>
-        <Header user={user} search={search} setSearch={setSearch} />
+        <Header user={user} search={search} setSearch={setSearch} go={go} />
         {message && <MessageAlert message={message} setMessage={setMessage} />}
         {page === 'home' && (
           <HomePage
