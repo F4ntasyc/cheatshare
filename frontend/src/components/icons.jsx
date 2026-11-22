@@ -199,3 +199,33 @@ export function ChevronLeftIcon(props) {
     </Svg>
   );
 }
+
+export function PlusIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 5v14M5 12h14" />
+    </Svg>
+  );
+}
+
+export function StarIcon(props) {
+  return (
+    <Svg {...props}>
+      <path
+        fill="currentColor"
+        d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1.03 6-5.38-2.83-5.38 2.83 1.03-6L3.3 9.6l6-.9z"
+      />
+    </Svg>
+  );
+}
+
+export function ChartIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M4 20.5h16" />
+      <path d="M7 17v-4M12 17V9.5M17 17V6.5" strokeWidth="3" />
+      <path d="m4.5 10.5 5-4.5 3.5 2.5 6-5" />
+      <path d="M15.5 3.5H19v3.5" />
+    </Svg>
+  );
+}

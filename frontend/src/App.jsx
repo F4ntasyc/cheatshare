@@ -79,8 +79,10 @@ export default function App() {
     try {
       await fn();
       await load();
+      return true;
     } catch (e) {
       showError(e);
+      return false;
     } finally {
       setBusy(false);
     }
@@ -184,7 +186,7 @@ export default function App() {
   }
   async function saveCourse(e) {
     e.preventDefault();
-    await run(async () => {
+    return run(async () => {
       await request(
         courseEdit ? '/courses/' + courseEdit : '/courses',
         courseEdit ? 'PATCH' : 'POST',
@@ -203,7 +205,7 @@ export default function App() {
   }
   async function saveProfile(e) {
     e.preventDefault();
-    await run(async () => {
+    return run(async () => {
       const u = await request('/users/' + user.id, 'PATCH', profile, token);
       setUser(u);
       setMessage('Profil berhasil diperbarui');
@@ -219,7 +221,9 @@ export default function App() {
   }
   const visible = notes.filter(
     (n) =>
-      (!course || String(n.course_id) === String(course)) &&
+      (page === 'profile' ||
+        !course ||
+        String(n.course_id) === String(course)) &&
       (!search ||
         [n.title, n.description, n.course_name]
           .join(' ')
@@ -321,6 +325,7 @@ export default function App() {
             removeAccount={removeAccount}
             startNote={startNote}
             courses={courses}
+            notes={notes}
             visible={visible}
             setSelected={setSelected}
             setPage={setPage}

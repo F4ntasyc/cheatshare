@@ -1,0 +1,322 @@
+/* Kelola Mata Kuliah. Token --shell-* dari .layout (shell.css). */
+
+.admin-page {
+  min-width: 0;
+}
+
+/* ---------- Hero berlatar awan ---------- */
+
+.admin-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  min-height: 170px;
+  padding: 28px clamp(24px, 4vw, 48px);
+  border-radius: 28px;
+  background: linear-gradient(110deg, #e6f1ff 0%, #eef6ff 50%, #dcecff 100%);
+}
+
+.admin-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 58% 120%, rgb(200 223 250 / 0.8) 0 80px, transparent 81px),
+    radial-gradient(circle at 72% 105%, rgb(196 220 250 / 0.75) 0 110px, transparent 111px),
+    radial-gradient(circle at 90% 115%, rgb(200 223 250 / 0.8) 0 100px, transparent 101px),
+    radial-gradient(circle at 100% 30%, rgb(255 255 255 / 0.6) 0 70px, transparent 71px);
+}
+
+.admin-hero-text {
+  min-width: 0;
+}
+
+.admin-hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.admin-hero p {
+  margin: 10px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 500;
+  color: var(--shell-text, #24324f);
+}
+
+/* ---------- Kartu ---------- */
+
+.admin-card {
+  margin-top: 22px;
+  padding: clamp(18px, 2.6vw, 28px);
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 24px;
+  background: var(--shell-surface, #ffffff);
+  box-shadow: 0 6px 18px rgb(30 64 120 / 0.05);
+  scroll-margin-top: 90px;
+}
+
+.admin-card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.admin-count {
+  display: inline-block;
+  margin: 10px 0 18px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #dcebfc;
+  color: #1b3f73;
+  font-weight: 700;
+}
+
+.admin-empty {
+  margin: 0;
+  padding: 24px;
+  border: 1.5px dashed var(--shell-border, #e3ecf8);
+  border-radius: 16px;
+  color: var(--shell-muted, #5b6b86);
+  text-align: center;
+}
+
+/* ---------- Form inline ---------- */
+
+.admin-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto;
+  align-items: end;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-weight: 700;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.admin-field input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--shell-ink, #0b1a3a);
+  font-weight: 500;
+}
+
+.admin-field input:focus {
+  outline: none;
+  border-color: var(--shell-accent, #1a6fd8);
+  box-shadow: 0 0 0 4px var(--shell-focus, rgb(26 111 216 / 0.28));
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ---------- Tombol ---------- */
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-btn--primary {
+  border: 0;
+  background: var(--shell-primary, #2e79b3);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgb(46 121 179 / 0.25);
+}
+
+.admin-btn--primary:not(:disabled):hover {
+  background: var(--shell-primary-hover, #276a9c);
+}
+
+.admin-btn--ghost {
+  border: 1.5px solid #cfe2f8;
+  background: #e3effd;
+  color: var(--shell-accent, #1a6fd8);
+}
+
+.admin-btn--edit {
+  height: 42px;
+  border: 1.5px solid #cfe2f8;
+  background: #e3effd;
+  color: var(--shell-accent, #1a6fd8);
+}
+
+.admin-btn--delete {
+  height: 42px;
+  border: 1.5px solid #ffd3d9;
+  background: #ffe9ec;
+  color: #c43445;
+}
+
+.admin-btn:focus-visible {
+  outline: 3px solid var(--shell-accent, #1a6fd8);
+  outline-offset: 2px;
+}
+
+/* ---------- Tabel ---------- */
+
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 18px;
+  text-align: left;
+}
+
+.admin-table th {
+  padding: 16px 20px;
+  background: #e3effd;
+  color: var(--shell-ink, #0b1a3a);
+  font-weight: 800;
+}
+
+.admin-table td {
+  padding: 14px 20px;
+  border-top: 1px solid var(--shell-border, #e3ecf8);
+  color: var(--shell-text, #24324f);
+}
+
+.admin-col-actions {
+  text-align: right;
+}
+
+.admin-code {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: #e3effd;
+  color: #1b3f73;
+  font-weight: 700;
+}
+
+.admin-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.admin-row-actions {
+  display: inline-flex;
+  gap: 10px;
+}
+
+/* ---------- Responsif: baris jadi kartu ---------- */
+
+@media (max-width: 900px) {
+  .admin-form {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+
+  .admin-form-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 720px) {
+  .admin-hero .admin-btn {
+    flex: 1 1 100%;
+  }
+
+  .admin-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-form-actions .admin-btn {
+    flex: 1;
+  }
+
+  .admin-table,
+  .admin-table tbody,
+  .admin-table tr,
+  .admin-table td {
+    display: block;
+  }
+
+  .admin-table {
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  /* Mode kartu: judul kolom diganti label tiap sel (data-label) */
+  .admin-table thead {
+    display: none;
+  }
+
+  .admin-table tr {
+    margin-bottom: 12px;
+    padding: 6px 14px 14px;
+    border: 1.5px solid var(--shell-border, #e3ecf8);
+    border-radius: 16px;
+  }
+
+  .admin-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 0;
+    border-top: 0;
+    text-align: right;
+  }
+
+  .admin-table td::before {
+    content: attr(data-label);
+    flex: none;
+    color: var(--shell-muted, #5b6b86);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .admin-table td.admin-col-actions {
+    display: block;
+    padding-top: 12px;
+  }
+
+  .admin-table td.admin-col-actions::before {
+    content: none;
+  }
+
+  .admin-row-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .admin-row-actions .admin-btn {
+    height: 46px;
+  }
+}

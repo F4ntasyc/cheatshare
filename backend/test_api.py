@@ -156,3 +156,19 @@ def test_storage_quota(monkeypatch):
     assert upload(c, h, JPEG).status_code == 201
     r = upload(c, h, JPEG)
     assert r.status_code == 507 and r.json()['detail'].startswith('Penyimpanan penuh')
+
+
+def test_admin_account_cannot_be_deleted():
+    c = TestClient(app)
+    login = {'email': 'admin@cheatshare.example.com', 'password': 'ChangeMe123!'}
+    admin = c.post('/auth/login', json=login)
+    assert admin.status_code == 200
+    ah = {'Authorization': 'Bearer ' + admin.json()['access_token']}
+    r = c.delete(f"/users/{admin.json()['user']['id']}", headers=ah)
+    assert r.status_code == 400 and r.json()['detail'] == 'Akun admin tidak dapat dihapus'
+    assert c.post('/auth/login', json=login).status_code == 200
+    # Akun biasa tetap bisa menghapus dirinya sendiri
+    user = c.post('/auth/register', json={'name': 'Akun Sementara', 'email': 'sementara@example.com', 'password': 'password123'})
+    uh = {'Authorization': 'Bearer ' + user.json()['access_token']}
+    assert c.delete(f"/users/{user.json()['user']['id']}", headers=uh).status_code == 204
+    assert c.post('/auth/login', json={'email': 'sementara@example.com', 'password': 'password123'}).status_code == 401

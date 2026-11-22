@@ -217,8 +217,10 @@ def update_user(id: int, data: UserUpdate, user=Depends(current_user)):
 @app.delete('/users/{id}', status_code=204)
 def delete_user(id: int, user=Depends(current_user)):
     with lock:
-        find(users, id, 'User')
+        target = find(users, id, 'User')
         own(user, id)
+        if target['role'] == 'admin':
+            raise HTTPException(400, 'Akun admin tidak dapat dihapus')
         owned_ids = {n['id'] for n in notes if n['user_id'] == id}
         owned_images = [url for n in notes if n['user_id'] == id for url in n['images']]
         notes[:] = [n for n in notes if n['user_id'] != id]

@@ -39,17 +39,6 @@ h2 {
 h3 {
   font-size: 18px;
 }
-.primary {
-  background: #2581c0;
-  color: white;
-  border: 0;
-  border-radius: 9px;
-  padding: 12px 20px;
-  font-weight: 750;
-}
-.primary:hover {
-  background: #11649e;
-}
 .sectionhead {
   display: flex;
   justify-content: space-between;
@@ -65,84 +54,8 @@ h3 {
   border: 1px solid #dbe6f3;
   border-radius: 9px;
 }
-.course small {
-  display: block;
-  color: #7790a7;
-  font-size: 12px;
-  margin-top: 5px;
-}
-.panel {
-  background: white;
-  border: 1px solid #e3ebf7;
-  border-radius: 16px;
-  padding: 28px;
-  margin: 16px 0;
-}
-.auth {
-  max-width: 500px;
-  margin: 65px auto;
-  text-align: center;
-}
-.auth form,
-.formpanel form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  text-align: left;
-}
-.auth label,
-.formpanel label {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  font-weight: 650;
-  color: #49637f;
-}
-.auth input,
-.formpanel input,
-.formpanel select,
-.formpanel textarea {
-  width: 100%;
-  border: 1px solid #d9e3f1;
-  border-radius: 9px;
-  padding: 12px;
-  background: white;
-  color: #20395d;
-}
-.formpanel {
-  max-width: 760px;
-}
-.link {
-  background: none;
-  border: 0;
-  color: #2179b7;
-  font-weight: 700;
-  padding: 8px;
-}
 .muted {
   color: #71879e;
-}
-.actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-top: 20px;
-}
-.actions button,
-td button {
-  padding: 9px 16px;
-  border: 1px solid #dce7f5;
-  border-radius: 8px;
-  background: #e8f4ff;
-  color: #246b9e;
-}
-.danger,
-button.danger {
-  color: #bd3744;
-  background: #fff0f1;
-  border: 1px solid #ffd9dd;
-  padding: 9px 14px;
-  border-radius: 8px;
 }
 .alert {
   padding: 13px 17px;
@@ -156,36 +69,8 @@ button.danger {
   border: 0;
   background: none;
 }
-.tablewrap {
-  overflow-x: auto;
-}
-table {
-  border-collapse: collapse;
-  width: 100%;
-  text-align: left;
-}
-th,
-td {
-  border-bottom: 1px solid #e8eef5;
-  padding: 14px;
-}
-th {
-  background: #eef6ff;
-}
-@media (max-width: 850px) {
-  .courses {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 @media (max-width: 580px) {
-  .courses {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
   .sectionhead h2 {
     font-size: 18px;
-  }
-  .panel {
-    padding: 18px;
   }
 }
