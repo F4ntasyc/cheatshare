@@ -71,11 +71,6 @@ h3 {
   font-size: 12px;
   margin-top: 5px;
 }
-.preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
 .panel {
   background: white;
   border: 1px solid #e3ebf7;
@@ -124,36 +119,8 @@ h3 {
   font-weight: 700;
   padding: 8px;
 }
-.detail {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 24px;
-}
-.preview {
-  background: #e4effc;
-  min-height: 340px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 100px;
-  overflow: hidden;
-}
 .muted {
   color: #71879e;
-}
-.stars {
-  display: flex;
-  gap: 6px;
-}
-.stars button {
-  font-size: 30px;
-  color: #b9c8d8;
-  background: none;
-  border: 0;
-}
-.stars button.starred {
-  color: #ffb71c;
 }
 .actions {
   display: flex;
@@ -208,9 +175,6 @@ th {
 @media (max-width: 850px) {
   .courses {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .detail {
-    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 580px) {

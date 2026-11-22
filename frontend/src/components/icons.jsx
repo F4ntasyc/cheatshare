@@ -142,3 +142,32 @@ export function GraduationCapIcon(props) {
     </Svg>
   );
 }
+
+export function ArrowLeftIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M19 12H5.5" />
+      <path d="m11 6-6 6 6 6" />
+    </Svg>
+  );
+}
+
+export function EditIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M4.5 19.5h4l10-10a2.8 2.8 0 0 0-4-4l-10 10v4Z" />
+      <path d="m13 7 4 4" />
+    </Svg>
+  );
+}
+
+export function TrashIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M4.5 7h15" />
+      <path d="M9.5 7V5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v2" />
+      <path d="M6.5 7l.9 12a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12" />
+      <path d="M10.5 11v5.5M13.5 11v5.5" />
+    </Svg>
+  );
+}

@@ -293,6 +293,7 @@ export default function App() {
             startNote={startNote}
             removeNote={removeNote}
             go={goList}
+            courses={courses}
           />
         )}
         {page === 'editor' && (
