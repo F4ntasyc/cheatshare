@@ -5,6 +5,7 @@ import Header from './components/Header.jsx';
 import MessageAlert from './components/MessageAlert.jsx';
 import AuthPage from './pages/auth/AuthPage.jsx';
 import HomePage from './pages/home/HomePage.jsx';
+import CoursePage from './pages/course/CoursePage.jsx';
 import NoteDetail from './pages/notes/NoteDetail.jsx';
 import NoteEditor from './pages/notes/NoteEditor.jsx';
 import ProfilePage from './pages/profile/ProfilePage.jsx';
@@ -19,6 +20,8 @@ export default function App() {
   const [notes, setNotes] = useState([]);
   const [ratings, setRatings] = useState([]);
   const [page, setPage] = useState('home');
+  // Halaman daftar terakhir ('home' | 'course') untuk "kembali ke daftar".
+  const [listPage, setListPage] = useState('home');
   const [selected, setSelected] = useState(null);
   const [course, setCourse] = useState('');
   const [sort, setSort] = useState('rating');
@@ -102,7 +105,10 @@ export default function App() {
     setPage(p);
     setMessage('');
     setSelected(null);
+    if (p === 'home' || p === 'course') setListPage(p);
   }
+  // Untuk NoteDetail/NoteEditor: go('home') berarti kembali ke daftar terakhir.
+  const goList = (p) => go(p === 'home' ? listPage : p);
   function startNote(n) {
     setEditId(n?.id || null);
     setNoteForm(
@@ -131,14 +137,14 @@ export default function App() {
         { ...noteForm, course_id: Number(noteForm.course_id) },
         token,
       );
-      go('home');
+      go(listPage);
     });
   }
   async function removeNote(id) {
     if (!confirm('Hapus cheatsheet ini?')) return;
     await run(async () => {
       await request('/notes/' + id, 'DELETE', null, token);
-      go('home');
+      go(listPage);
     });
   }
   async function saveRating(score) {
@@ -260,6 +266,22 @@ export default function App() {
             setPage={setPage}
           />
         )}
+        {page === 'course' && (
+          <CoursePage
+            user={user}
+            courses={courses}
+            notes={notes}
+            course={course}
+            setCourse={setCourse}
+            sort={sort}
+            setSort={setSort}
+            visible={visible}
+            startNote={startNote}
+            go={go}
+            setSelected={setSelected}
+            setPage={setPage}
+          />
+        )}
         {page === 'detail' && selected && (
           <NoteDetail
             selected={selected}
@@ -270,7 +292,7 @@ export default function App() {
             removeRating={removeRating}
             startNote={startNote}
             removeNote={removeNote}
-            go={go}
+            go={goList}
           />
         )}
         {page === 'editor' && (
@@ -281,7 +303,7 @@ export default function App() {
             courses={courses}
             busy={busy}
             saveNote={saveNote}
-            go={go}
+            go={goList}
           />
         )}
         {page === 'profile' && user && (
@@ -293,6 +315,7 @@ export default function App() {
             saveProfile={saveProfile}
             removeAccount={removeAccount}
             startNote={startNote}
+            courses={courses}
             visible={visible}
             setSelected={setSelected}
             setPage={setPage}

@@ -8,6 +8,7 @@ export default function ProfilePage({
   saveProfile,
   removeAccount,
   startNote,
+  courses,
   visible,
   setSelected,
   setPage,
@@ -57,6 +58,7 @@ export default function ProfilePage({
       </div>
       <NoteGrid
         notes={visible}
+        courses={courses}
         onSelect={(n) => {
           setSelected(n);
           setPage('detail');

@@ -134,7 +134,7 @@ export default function HomePage({
                   aria-pressed={chosen}
                   onClick={() => {
                     setCourse(String(c.id));
-                    scrollToNotes();
+                    go('course');
                   }}
                 >
                   <CourseIcon
@@ -177,6 +177,7 @@ export default function HomePage({
         </div>
         <NoteGrid
           notes={visible}
+          courses={courses}
           onSelect={(n) => {
             setSelected(n);
             setPage('detail');

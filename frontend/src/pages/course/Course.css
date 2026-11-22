@@ -1,0 +1,190 @@
+/* Halaman per mata kuliah. Token --shell-* dari .layout; tombol .home-btn
+   dan .home-select dari Home.css. */
+
+/* ---------- Hero (gaya sama dengan beranda, lebih ringkas) ---------- */
+
+.course-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas: 'text mascot btn';
+  align-items: center;
+  column-gap: clamp(16px, 3vw, 40px);
+  min-height: 200px;
+  padding: 0 clamp(24px, 4vw, 56px);
+  border-radius: 28px;
+  background: linear-gradient(110deg, #d9ebff 0%, #e8f3ff 55%, #dcecff 100%);
+}
+
+/* Awan dekoratif (CSS murni) */
+.course-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 30% 125%,
+      rgb(255 255 255 / 0.7) 0 90px,
+      transparent 91px
+    ),
+    radial-gradient(
+      circle at 62% 115%,
+      rgb(255 255 255 / 0.7) 0 110px,
+      transparent 111px
+    ),
+    radial-gradient(
+      circle at 96% 0%,
+      rgb(255 255 255 / 0.55) 0 80px,
+      transparent 81px
+    );
+}
+
+.course-hero-text {
+  grid-area: text;
+  min-width: 0;
+  padding-block: 28px;
+}
+
+.course-hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--shell-ink, #0b1a3a);
+  overflow-wrap: break-word;
+}
+
+.course-hero p {
+  margin: 10px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 500;
+  color: var(--shell-text, #24324f);
+}
+
+.course-hero-mascot {
+  grid-area: mascot;
+  align-self: end;
+  width: auto;
+  height: 190px;
+  margin-top: 12px;
+  margin-bottom: -28px;
+}
+
+.course-hero-mascot[hidden] {
+  display: none;
+}
+
+.course-upload {
+  grid-area: btn;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+/* ---------- Daftar cheatsheet ---------- */
+
+.course-notes {
+  margin-top: 32px;
+}
+
+.course-notes-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 18px;
+}
+
+.course-notes-head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.course-empty,
+.course-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 28px 24px;
+  border: 1.5px dashed var(--shell-border, #e3ecf8);
+  border-radius: 16px;
+  background: var(--shell-surface, #ffffff);
+  color: var(--shell-muted, #5b6b86);
+  text-align: center;
+}
+
+.course-empty p,
+.course-missing p {
+  margin: 0;
+}
+
+/* ---------- Tablet: tombol pindah ke bawah teks ---------- */
+
+@media (max-width: 1100px) {
+  .course-hero {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'text mascot'
+      'btn mascot';
+  }
+
+  .course-hero-text {
+    padding-bottom: 0;
+  }
+
+  .course-upload {
+    justify-self: start;
+    margin: 16px 0 28px;
+  }
+
+  .course-hero-mascot {
+    align-self: end;
+  }
+}
+
+/* ---------- Mobile: maskot kecil, tombol lebar penuh ---------- */
+
+@media (max-width: 580px) {
+  .course-hero {
+    grid-template-areas:
+      'text mascot'
+      'btn btn';
+    column-gap: 12px;
+    min-height: 0;
+    padding: 0 20px;
+    border-radius: 22px;
+  }
+
+  .course-hero-text {
+    padding-block: 22px 0;
+  }
+
+  .course-hero-mascot {
+    height: 104px;
+    margin-bottom: 0;
+    align-self: center;
+  }
+
+  .course-upload {
+    justify-self: stretch;
+    justify-content: center;
+    margin: 16px 0 20px;
+  }
+
+  .course-notes-head h2 {
+    font-size: 1.25rem;
+  }
+
+  .course-notes-head .home-select {
+    flex: 1 1 auto;
+  }
+}

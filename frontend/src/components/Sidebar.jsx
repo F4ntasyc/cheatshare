@@ -24,7 +24,7 @@ export default function Sidebar({ page, user, setCourse, go, logout }) {
       </div>
       <nav className="shell-nav">
         <NavItem
-          active={page === 'home'}
+          active={page === 'home' || page === 'course'}
           icon={<HomeIcon size={24} />}
           label="Mata Kuliah"
           onClick={() => {

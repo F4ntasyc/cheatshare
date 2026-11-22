@@ -65,50 +65,12 @@ h3 {
   border: 1px solid #dbe6f3;
   border-radius: 9px;
 }
-.course small,
-.notecard small {
+.course small {
   display: block;
   color: #7790a7;
   font-size: 12px;
   margin-top: 5px;
 }
-.notegrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-.notecard {
-  border: 1px solid #e5edf7;
-  background: white;
-  border-radius: 13px;
-  text-align: left;
-  padding: 10px;
-  overflow: hidden;
-  color: #263e5c;
-}
-.notecard:hover {
-  box-shadow: 0 8px 24px #1a6eae19;
-}
-.notecard b,
-.notecard small,
-.notecard p {
-  margin-left: 7px;
-}
-.notecard p {
-  color: #c48d13;
-  font-size: 13px;
-}
-.thumb {
-  height: 155px;
-  background: linear-gradient(145deg, #e1eeff, #d9e7f9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-size: 52px;
-}
-.thumb img,
 .preview img {
   width: 100%;
   height: 100%;
@@ -244,8 +206,7 @@ th {
   background: #eef6ff;
 }
 @media (max-width: 850px) {
-  .courses,
-  .notegrid {
+  .courses {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .detail {
@@ -253,13 +214,9 @@ th {
   }
 }
 @media (max-width: 580px) {
-  .courses,
-  .notegrid {
+  .courses {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-  }
-  .thumb {
-    height: 110px;
   }
   .sectionhead h2 {
     font-size: 18px;

@@ -1,0 +1,194 @@
+/* Kartu cheatsheet (beranda, halaman mata kuliah, profil).
+   Token --shell-* dari .layout; nilai cadangan bila dipakai di luar shell. */
+
+/* Maksimal 3 kolom, kolom minimal 280px */
+.note-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(min(100%, 280px), calc((100% - 40px) / 3)), 1fr)
+  );
+}
+
+.note-grid > .muted {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.note-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 12px 14px;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 20px;
+  background: var(--shell-surface, #ffffff);
+  color: var(--shell-text, #24324f);
+  text-align: left;
+  box-shadow: 0 6px 18px rgb(30 64 120 / 0.05);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.note-card:hover {
+  border-color: #bcd5f1;
+  box-shadow: 0 10px 24px rgb(30 64 120 / 0.1);
+  transform: translateY(-1px);
+}
+
+.note-card:focus-visible {
+  outline: 3px solid var(--shell-accent, #1a6fd8);
+  outline-offset: 2px;
+}
+
+/* Gambar: rasio tetap; ubin netral + ikon di belakang <img> sebagai cadangan */
+.note-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 4px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #e6f0fd, #d9e7f9);
+  color: #8aa6c8;
+}
+
+.note-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  padding-inline: 4px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--shell-ink, #0b1a3a);
+  overflow-wrap: break-word;
+}
+
+.note-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding-inline: 4px;
+  font-size: 0.9rem;
+  color: var(--shell-muted, #5b6b86);
+}
+
+.note-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e3eefc;
+  color: var(--shell-primary, #2e79b3);
+}
+
+.note-author-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-inline: 4px;
+}
+
+.note-rating {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  min-width: 0;
+  font-size: 0.92rem;
+  color: var(--shell-muted, #5b6b86);
+}
+
+.note-rating b {
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.note-rating--none {
+  font-style: italic;
+}
+
+.note-stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.note-star {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.note-star svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: #d5dde8;
+}
+
+.note-star-fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+.note-star-fill svg {
+  fill: #f5b301;
+}
+
+.note-star--full .note-star-fill {
+  width: 100%;
+}
+
+.note-star--half .note-star-fill {
+  width: 50%;
+}
+
+.note-code {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #e8f2fe;
+  color: var(--shell-accent, #1a6fd8);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-card {
+    transition: none;
+  }
+
+  .note-card:hover {
+    transform: none;
+  }
+}
