@@ -171,3 +171,31 @@ export function TrashIcon(props) {
     </Svg>
   );
 }
+
+export function UploadCloudIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M7 18.5H6.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 17.6 8.1a4.5 4.5 0 0 1-.1 10.4H17" />
+      <path d="M12 20.5v-8" />
+      <path d="m8.8 15.2 3.2-3.2 3.2 3.2" />
+    </Svg>
+  );
+}
+
+export function ImageIcon(props) {
+  return (
+    <Svg {...props}>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2.5" />
+      <circle cx="9" cy="9.5" r="1.6" />
+      <path d="m20.5 15.5-4.6-4.6a1.5 1.5 0 0 0-2.1 0L5 19.5" />
+    </Svg>
+  );
+}
+
+export function ChevronLeftIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="m14.5 6-6 6 6 6" />
+    </Svg>
+  );
+}

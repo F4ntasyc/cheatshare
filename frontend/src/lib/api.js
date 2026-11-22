@@ -17,3 +17,26 @@ export async function request(path, method = 'GET', body, token) {
     );
   return data;
 }
+
+// Unggah satu foto sebagai body mentah (bukan multipart). Balasan: {id, url}.
+export async function uploadImage(blob, token) {
+  const res = await fetch(API + '/uploads', {
+    method: 'POST',
+    headers: {
+      'Content-Type': blob.type || 'application/octet-stream',
+      ...(token ? { Authorization: 'Bearer ' + token } : {}),
+    },
+    body: blob,
+  });
+  // Penolakan dari nginx (mis. 413) berupa HTML, bukan JSON.
+  const data = await res.json().catch(() => null);
+  if (!res.ok)
+    throw Error(
+      typeof data?.detail === 'string'
+        ? data.detail
+        : res.status === 413
+          ? 'Foto terlalu besar (maks. 10 MB)'
+          : 'Permintaan gagal',
+    );
+  return data;
+}

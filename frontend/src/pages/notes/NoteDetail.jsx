@@ -2,9 +2,9 @@ import { useState } from 'react';
 import {
   ArrowLeftIcon,
   EditIcon,
-  FileIcon,
   TrashIcon,
 } from '../../components/icons.jsx';
+import ImageCarousel from '../../components/ImageCarousel.jsx';
 import { AuthorAvatar, Star } from '../../components/StarRating.jsx';
 import './NoteDetail.css';
 
@@ -36,7 +36,12 @@ export default function NoteDetail({
   const canManage =
     user && (user.id === selected.user_id || user.role === 'admin');
 
-  const fallback = <FileIcon size={56} className="detail-image-fallback" />;
+  // Foto: images (fallback image_url lama).
+  const photos = selected.images?.length
+    ? selected.images
+    : selected.image_url
+      ? [selected.image_url]
+      : [];
 
   return (
     <div className="detail-page">
@@ -56,28 +61,11 @@ export default function NoteDetail({
       </p>
 
       <div className="detail-layout">
-        <div className="detail-frame">
-          {selected.image_url ? (
-            <a
-              className="detail-image"
-              href={selected.image_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Buka gambar ukuran penuh"
-            >
-              {fallback}
-              <img
-                src={selected.image_url}
-                alt={selected.title}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </a>
-          ) : (
-            <div className="detail-image">{fallback}</div>
-          )}
-        </div>
+        {photos.length > 0 && (
+          <div className="detail-frame">
+            <ImageCarousel images={photos} title={selected.title} />
+          </div>
+        )}
 
         <section className="detail-panel">
           <h2>{selected.title}</h2>

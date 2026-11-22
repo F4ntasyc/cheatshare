@@ -1,0 +1,405 @@
+/* Unggah/Edit cheatsheet. Token --shell-* dari .layout (shell.css). */
+
+.editor-page {
+  min-width: 0;
+}
+
+/* ---------- Hero ---------- */
+
+.editor-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 190px;
+  padding: 0 clamp(24px, 4vw, 56px);
+  border-radius: 28px;
+  background: linear-gradient(110deg, #d9ebff 0%, #e8f3ff 55%, #dcecff 100%);
+}
+
+.editor-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 34% 130%, rgb(255 255 255 / 0.7) 0 90px, transparent 91px),
+    radial-gradient(circle at 70% 120%, rgb(255 255 255 / 0.7) 0 110px, transparent 111px),
+    radial-gradient(circle at 98% 10%, rgb(255 255 255 / 0.55) 0 80px, transparent 81px);
+}
+
+.editor-hero-text {
+  align-self: center;
+  min-width: 0;
+  padding-block: 28px;
+}
+
+.editor-hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.editor-hero p {
+  margin: 10px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 500;
+  color: var(--shell-text, #24324f);
+}
+
+.editor-hero-mascot {
+  flex: none;
+  width: clamp(180px, 20vw, 260px);
+  height: auto;
+  margin-top: 12px;
+}
+
+.editor-hero-mascot[hidden] {
+  display: none;
+}
+
+/* ---------- Kartu form: dua kolom ---------- */
+
+.editor-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 36px);
+  margin-top: 24px;
+  padding: clamp(20px, 2.6vw, 32px);
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 24px;
+  background: var(--shell-surface, #ffffff);
+  box-shadow: 0 6px 18px rgb(30 64 120 / 0.05);
+}
+
+.editor-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.editor-field > span,
+.editor-preview h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.editor-field input,
+.editor-field select,
+.editor-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--shell-border, #e3ecf8);
+  border-radius: 14px;
+  background: var(--shell-surface, #ffffff);
+  color: var(--shell-ink, #0b1a3a);
+}
+
+.editor-field textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.editor-field input::placeholder,
+.editor-field textarea::placeholder {
+  color: var(--shell-muted, #5b6b86);
+  opacity: 0.85;
+}
+
+.editor-field input:focus,
+.editor-field select:focus,
+.editor-field textarea:focus {
+  outline: none;
+  border-color: var(--shell-accent, #1a6fd8);
+  box-shadow: 0 0 0 4px var(--shell-focus, rgb(26 111 216 / 0.28));
+}
+
+/* ---------- Area drop ---------- */
+
+.editor-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 24px 16px;
+  border: 2px dashed #b9d4f3;
+  border-radius: 18px;
+  background: #f6faff;
+  color: var(--shell-accent, #1a6fd8);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.editor-drop:hover,
+.editor-drop.is-dragging {
+  border-color: var(--shell-accent, #1a6fd8);
+  background: #eaf3ff;
+}
+
+.editor-drop:focus-visible {
+  outline: 3px solid var(--shell-accent, #1a6fd8);
+  outline-offset: 2px;
+}
+
+.editor-drop strong {
+  color: var(--shell-ink, #0b1a3a);
+  font-size: 0.98rem;
+}
+
+.editor-drop small {
+  color: var(--shell-muted, #5b6b86);
+}
+
+.editor-drop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 9px 18px;
+  border-radius: 12px;
+  background: var(--shell-primary, #2e79b3);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Input file tersembunyi (spesifisitas > .editor-field input) */
+.editor-field .editor-file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.editor-notice {
+  min-height: 1.2em;
+  margin: 0;
+  color: #bd3744;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---------- Pratinjau ---------- */
+
+.editor-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.editor-preview-empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 260px;
+  padding: 24px;
+  border-radius: 18px;
+  background: #e3effd;
+  color: #7f9cc0;
+  text-align: center;
+}
+
+.editor-preview-empty p {
+  margin: 0;
+  color: var(--shell-muted, #5b6b86);
+}
+
+.editor-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 14px;
+  border-radius: 18px;
+  background: #e3effd;
+  list-style: none;
+}
+
+.editor-thumb {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1.5px solid #cfe2f8;
+  border-radius: 14px;
+  background: #f7fbff;
+}
+
+/* Foto pertama (sampul) lebih besar */
+.editor-thumb:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 3;
+}
+
+.editor-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editor-thumb.is-error {
+  border-color: #ffd3d9;
+  background: #fff3f5;
+}
+
+.editor-thumb-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 100%;
+  padding: 12px 10px 40px;
+  color: #bd3744;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.editor-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--shell-primary, #2e79b3);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.editor-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(11 26 58 / 0.45);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.editor-thumb-remove {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1.5px solid #ffd3d9;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #c43445;
+}
+
+.editor-thumb-remove:focus-visible,
+.editor-btn:focus-visible {
+  outline: 3px solid var(--shell-accent, #1a6fd8);
+  outline-offset: 2px;
+}
+
+/* ---------- Tombol ---------- */
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--shell-border, #e3ecf8);
+}
+
+.editor-btn {
+  height: 50px;
+  padding: 0 24px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.editor-btn--ghost {
+  border: 1.5px solid #cfe2f8;
+  background: #e3effd;
+  color: var(--shell-accent, #1a6fd8);
+}
+
+.editor-btn--primary {
+  border: 0;
+  background: var(--shell-primary, #2e79b3);
+  color: #ffffff;
+}
+
+.editor-btn--primary:not(:disabled):hover {
+  background: var(--shell-primary-hover, #276a9c);
+}
+
+/* ---------- Responsif ---------- */
+
+@media (max-width: 720px) {
+  .editor-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .editor-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 580px) {
+  .editor-hero {
+    gap: 8px;
+    min-height: 0;
+    padding: 0 20px;
+    border-radius: 22px;
+  }
+
+  .editor-hero-text {
+    padding-block: 22px;
+  }
+
+  .editor-hero-mascot {
+    width: 104px;
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .editor-thumbs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editor-drop {
+    transition: none;
+  }
+}

@@ -31,7 +31,7 @@ export default function App() {
   const [noteForm, setNoteForm] = useState({
     title: '',
     description: '',
-    image_url: '',
+    images: [],
     course_id: '',
   });
   const [editId, setEditId] = useState(null);
@@ -116,13 +116,17 @@ export default function App() {
         ? {
             title: n.title,
             description: n.description,
-            image_url: n.image_url,
+            images: n.images?.length
+              ? [...n.images]
+              : n.image_url
+                ? [n.image_url]
+                : [],
             course_id: String(n.course_id),
           }
         : {
             title: '',
             description: '',
-            image_url: '',
+            images: [],
             course_id: String(course || courses[0]?.id || ''),
           },
     );

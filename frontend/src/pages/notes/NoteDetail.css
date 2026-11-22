@@ -56,31 +56,6 @@
   background: #e3effd;
 }
 
-.detail-image {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: 16px;
-  background: linear-gradient(145deg, #e6f0fd, #d9e7f9);
-  color: #8aa6c8;
-}
-
-.detail-image img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #f7fbff;
-}
-
-a.detail-image:focus-visible {
-  outline: 3px solid var(--shell-accent, #1a6fd8);
-  outline-offset: 3px;
-}
-
 .detail-panel {
   min-width: 0;
   padding: clamp(20px, 2.4vw, 30px);
