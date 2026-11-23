@@ -20,6 +20,27 @@ const SESSION_EXPIRED = 'Sesi berakhir, silakan masuk lagi.';
 // Halaman yang menampilkan pesan form secara inline (bukan di slot global).
 const INLINE_MESSAGE_PAGES = ['profile', 'admin'];
 
+// URL <-> halaman. Contoh: /course/2, /note/5, /note/5/edit, /note/new.
+function parsePath(p) {
+  const [a, b, c] = p.split('/').filter(Boolean);
+  if (a === 'course' && b) return { page: 'course', course: b };
+  if (a === 'note' && b === 'new') return { page: 'editor' };
+  if (a === 'note' && b && c === 'edit') return { page: 'editor', noteId: b };
+  if (a === 'note' && b) return { page: 'detail', noteId: b };
+  if (a === 'profile') return { page: 'profile' };
+  if (a === 'admin') return { page: 'admin' };
+  return { page: 'home' };
+}
+function pathFor(page, { course, selected, editId }) {
+  if (page === 'home') return '/';
+  if (page === 'course') return course ? '/course/' + course : '/';
+  if (page === 'detail') return selected ? '/note/' + selected.id : null;
+  if (page === 'editor') return editId ? `/note/${editId}/edit` : '/note/new';
+  if (page === 'profile') return '/profile';
+  if (page === 'admin') return '/admin';
+  return null;
+}
+
 export default function App() {
   const [token, setToken] = useState(
     () => sessionStorage.getItem('cs_token') || '',
@@ -49,6 +70,8 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   // true setelah load() pertama sesi ini selesai.
   const [ready, setReady] = useState(false);
+  // true setelah URL awal diterapkan (deep link/refresh); sebelum itu URL tidak diubah.
+  const [routed, setRouted] = useState(false);
   const [meError, setMeError] = useState('');
   const [meAttempt, setMeAttempt] = useState(0);
   // Naik setiap sesi direset; hasil request dari sesi lama diabaikan.
@@ -81,6 +104,8 @@ export default function App() {
     setCourse('');
     setArea('courses');
     setReady(false);
+    setRouted(false);
+    history.replaceState(null, '', '/');
     setMeError('');
     setMessage(text);
     setMessageTone('error');
@@ -104,9 +129,88 @@ export default function App() {
       if (sid === sessionRef.current) setReady(true);
     }
   };
+  // Muat data saat token/urutan berubah. load() memperbarui state hanya
+  // setelah request selesai (async), jadi aturan set-state-in-effect dan
+  // exhaustive-deps dinonaktifkan secara sengaja untuk satu baris ini.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (token) load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, token]);
+
+  // ---- Sinkronisasi URL (History API): tombol Back/Forward dan refresh ----
+  const applyRef = useRef(null);
+  useEffect(() => {
+    // Selalu pakai closure terbaru (user, courses, dst).
+    applyRef.current = async (path) => {
+      const r = parsePath(path);
+      setMessage('');
+      try {
+        if (r.noteId) {
+          const n = await request('/notes/' + r.noteId);
+          if (r.page === 'editor') {
+            startNote(n);
+          } else {
+            setSelected(n);
+            setPage('detail');
+            setArea('courses');
+          }
+          return;
+        }
+      } catch {
+        // Cheatsheet tidak ada lagi: kembali ke beranda.
+        history.replaceState(null, '', '/');
+        setSelected(null);
+        setPage('home');
+        setArea('courses');
+        return;
+      }
+      if (r.page === 'editor') return startNote();
+      if (r.page === 'admin' && user?.role !== 'admin') {
+        history.replaceState(null, '', '/');
+        return go('home');
+      }
+      setSelected(null);
+      if (r.page === 'course') {
+        setCourse(r.course);
+        setListPage('course');
+        setArea('courses');
+        setPage('course');
+      } else if (r.page === 'home') {
+        setCourse('');
+        setListPage('home');
+        setArea('courses');
+        setPage('home');
+      } else {
+        setArea(r.page);
+        setPage(r.page);
+      }
+    };
+  });
+  // Terapkan URL saat ini sekali setelah login/reload dan data siap.
+  useEffect(() => {
+    if (!user || !ready || routed) return;
+    let active = true;
+    applyRef.current(window.location.pathname).finally(() => {
+      if (active) setRouted(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, [user, ready, routed]);
+  // Back/Forward: ubah state sesuai URL.
+  useEffect(() => {
+    if (!routed) return;
+    const onPop = () => applyRef.current(window.location.pathname);
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [routed]);
+  // State -> URL: dorong riwayat baru hanya saat path berubah.
+  useEffect(() => {
+    if (!routed) return;
+    const p = pathFor(page, { course, selected, editId });
+    if (p && p !== window.location.pathname) history.pushState(null, '', p);
+  }, [routed, page, course, selected, editId]);
   // /auth/me hanya bila token ada tetapi user belum diketahui (mis. reload).
   useEffect(() => {
     if (!token || user) return;

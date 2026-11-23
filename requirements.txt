@@ -1,0 +1,4 @@
+# Dependensi Python untuk Vercel Function (api/index.py).
+# Harus sama dengan backend/requirements.txt (Docker memakai file itu).
+fastapi==0.115.12
+pydantic[email]==2.11.4
