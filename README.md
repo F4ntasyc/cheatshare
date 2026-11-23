@@ -9,7 +9,7 @@ Tugas 9 Komputasi Awan dan Sistem Terdistribusi (Kelompok CloudBread).
 | Backend | FastAPI (Python 3.12) |
 | Penyimpanan | Tanpa database: list/dict di RAM backend |
 | Lokal | Docker Compose (nginx untuk frontend) |
-| Hosting | Vercel (static + Python Function) |
+| Hosting | Vercel (frontend static) + Render (backend Docker) |
 
 ## Menjalankan lokal (Docker)
 
@@ -51,34 +51,43 @@ Data demo (12 cheatsheet, rating) dibuat setiap backend start. Matikan dengan `S
 
 ```
 cheatshare/
-├── api/index.py          # entry point Vercel (mount backend di /api)
-├── backend/              # FastAPI: main.py, tes, Dockerfile
+├── backend/              # FastAPI: main.py, tes, Dockerfile (untuk lokal & Render)
 ├── frontend/             # React + Vite, nginx.conf, Dockerfile
-├── vercel.json           # build + rewrites Vercel
-├── requirements.txt      # dependensi Python untuk Vercel
+├── vercel.json           # build frontend + rewrite /api ke backend Render
 ├── docker-compose.yml
 ├── .env.example
 └── TODO.md
 ```
 
-## Deploy ke Vercel
+## Deploy (Vercel + Render)
 
-Satu project Vercel melayani frontend (static, `frontend/dist`) dan backend (Python Function `api/index.py`). `vercel.json` mengarahkan `/api/*` ke fungsi dan semua path lain ke `index.html` (SPA).
+Frontend (React/Vite) di-host sebagai static site di **Vercel**, sedangkan backend (FastAPI) dijalankan dalam **1 container Docker (`--workers 1`) di Render** agar data di RAM tetap konsisten dan tidak terpecah antar instance serverless. `vercel.json` meneruskan semua request `/api/*` ke `https://cheatshare.onrender.com/*` dan path lainnya ke `index.html` (SPA).
+
+### 1. Backend di Render
+
+1. Di Render, buat **New > Web Service**, hubungkan repo ini, lalu atur:
+   - **Root Directory:** `backend`
+   - **Runtime:** `Docker` (memakai `backend/Dockerfile`)
+   - **Health Check Path:** `/health`
+2. Isi **Environment Variables**:
+   - `PORT=8000` (wajib, sesuai `backend/Dockerfile`)
+   - `SECRET_KEY`: string acak panjang (**wajib tetap** agar token tetap valid)
+   - `ADMIN_EMAIL`, `ADMIN_PASSWORD`: ganti dari nilai bawaan
+   - `SEED_DEMO=true`, `DEMO_PASSWORD`
+3. Deploy hingga status **Live**, lalu cek `https://cheatshare.onrender.com/health` mengembalikan `{"status":"ok"}`.
+
+### 2. Frontend di Vercel
 
 1. Push branch ke GitHub, lalu di Vercel: **Add New > Project** dan pilih repo ini. **Root Directory = root repo** (bukan `frontend`). Framework Preset: *Other* (sudah diatur di `vercel.json`).
-2. Isi **Environment Variables** (Production dan Preview):
-   - `SECRET_KEY`: string acak panjang, **wajib tetap** (jika tidak, token tidak valid antar instance).
-   - `ADMIN_EMAIL`, `ADMIN_PASSWORD`: ganti dari nilai bawaan.
-   - `SEED_DEMO=true` (agar ada data saat demo), `DEMO_PASSWORD`.
-3. Deploy. Uji `https://<domain>/api/health` dan buka halaman utama.
+2. Jika URL backend Render berubah, perbarui tujuan `/api/:path*` di `vercel.json` lalu push ulang agar Vercel redeploy.
+3. Uji `https://<domain-vercel>/api/health` dan buka halaman utama.
 
 CLI (opsional): `npm i -g vercel`, `vercel login`, `vercel` (preview), `vercel --prod`.
 
-### Batasan pada Vercel (penting untuk presentasi)
+### Batasan pada hosting gratis (penting untuk presentasi)
 
-- **Data di RAM, bukan persisten.** Setiap cold start atau instance baru mereset data ke seed. Akun/cheatsheet/rating baru dapat hilang atau tidak terlihat di instance lain. Ini konsekuensi aturan "tanpa database" pada arsitektur serverless dan menjadi bahan bahasan skalabilitas (state tidak dibagi antar server).
-- **Foto yang diunggah** disimpan di RAM instance (`/api/files/...`) dan dapat hilang; body request dibatasi sekitar 4,5 MB oleh Vercel (klien sudah mengompres). Cheatsheet seed memakai URL gambar eksternal sehingga tetap tampil.
-- Untuk data yang stabil, jalankan backend di platform kontainer yang selalu hidup (Render/Railway) dengan `--workers 1`, atau tambahkan penyimpanan eksternal (di luar ketentuan tugas).
+- **Data di RAM, bukan persisten.** Semua data tetap disimpan di memori backend (`--workers 1`), sesuai ketentuan "tanpa database". Pada Render Free tier, service akan *sleep* setelah ~15 menit tanpa trafik; saat bangun kembali butuh ~30–50 detik dan seluruh data akan ter-reset ke data seed (termasuk foto yang diunggah ke `/api/files/...`).
+- **Tips presentasi:** buka `https://<domain-vercel>/api/health` 1–2 menit sebelum demo dimulai agar container Render sudah aktif.
 - Sebelum dipublikasikan: ganti `SECRET_KEY` dan password admin. Autentikasi ini untuk demonstrasi akademik.
 
 ## Perintah harian
